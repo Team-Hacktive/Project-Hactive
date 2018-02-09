@@ -13,20 +13,43 @@ class Main extends Component {
   constructor(props) {
     super(props);
     this.onChange = this.onChange.bind(this)
+    this.state = {
+      code: ''
+    }
   }
 
   onChange = (obj) => {
-    console.log(obj)
+    this.setState({
+      code: obj
+    })
   }
 
   render () {
+    console.log('state', this.state)
     return (
+      // <AceEditor
+      //   mode="javascript"
+      //   theme="monokai"
+      //   height="50em"
+      //   onChange={this.onChange}
+      // />
       <AceEditor
         mode="javascript"
         theme="monokai"
-        height="50em"
+        name="UNIQUE_ID_OF_DIV"
         onChange={this.onChange}
-      />
+        fontSize={20}
+        showPrintMargin={true}
+        showGutter={true}
+        highlightActiveLine={true}
+        value={`function add(a, b) { ${this.state.code} }`}
+        setOptions={{
+        enableBasicAutocompletion: false,
+        enableLiveAutocompletion: true,
+        enableSnippets: false,
+        showLineNumbers: true,
+        tabSize: 2,
+        }}/>
     )
   }
 
