@@ -17,3 +17,5 @@ const Dialog = db.define("dialog", {
     }
   }
 })
+
+module.exports = Dialog
