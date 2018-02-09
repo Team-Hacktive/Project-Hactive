@@ -25,10 +25,6 @@ const Problem = db.define('problem', {
     },
     Progress: {
       type: Sequelize.TEXT, // or Sequelize.JSON / .JSONB
-      allowNull: false,
-      validate: {
-        notEmpty: true
-      }
     }
 })
 
