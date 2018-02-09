@@ -5,11 +5,18 @@ const Dialog = db.define("dialog", {
   content: {
     type: Sequelize.TEXT,
     validate: {
-      isAlphanumeric: true
+      isAlphanumeric: true,
+      notNull: true,
+      notEmpty: true
     }
   },
   category: {
     type: Sequelize.ENUM('success','failure','hint','story'),
-    allowNull: false
+    allowNull: false,
+    validate: {
+      isAlphanumeric: true,
+      notNull: true,
+      notEmpty: true
+    }
   }
 })
