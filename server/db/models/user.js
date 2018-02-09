@@ -6,19 +6,34 @@ const User = db.define('user', {
   email: {
     type: Sequelize.STRING,
     unique: true,
-    allowNull: false
+    allowNull: false,
+    validate: {
+      isEmail: true,
+      notEmpty: true,
+      len: [1, 255]
+    }
   },
   password: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING, // or Sequelize.VIRTUAL?
+    allowNull: false,
+    validate: {
+      notEmpty: true
+    }
   },
   salt: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
+    validate: {
+      notEmpty: true
+    }
   },
   googleId: {
     type: Sequelize.STRING
   },
   level: {
-    type: Sequelize.INTEGER
+    type: Sequelize.INTEGER,
+    validate: {
+      isInt: true
+    }
   }
 })
 
