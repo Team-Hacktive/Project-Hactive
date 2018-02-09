@@ -16,6 +16,9 @@ const User = db.define('user', {
   },
   googleId: {
     type: Sequelize.STRING
+  },
+  level: {
+    type: Sequelize.INTEGER
   }
 })
 
