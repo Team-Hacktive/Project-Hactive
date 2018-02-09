@@ -9,3 +9,5 @@ const Dialog = db.define("dialog", {
     type: Sequelize.ENUM('success','failure','hint','story')
   }
 })
+
+module.exports = Dialog
