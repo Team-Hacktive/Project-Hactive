@@ -29,8 +29,8 @@ async function seed () {
   ])
 
   const problems = await Promise.all([
-    Problem.create({name: "Make a linked list", prompt: 'Make a singly linked list. You should be able to add and remove nodes from it', level: 11, progress: null})
-    Problem.create({name: "Remove the kth from last node", prompt: 'Oh no! The third  node is corrupted. Remove it.', level: 12, progress: null})
+    Problem.create({name: "Make a linked list", prompt: 'Make a singly linked list. You should be able to add and remove nodes from it', level: 11, progress: null}),
+    Problem.create({name: "Remove the kth from last node", prompt: 'Oh no! The third node is corrupted. Remove it.', level: 12, progress: null})
   ])
 
 
