@@ -12,7 +12,6 @@ const Dialog = db.define("dialog", {
   },
   category: {
     type: Sequelize.ENUM('success','failure','hint','story'),
-    allowNull: false,
     validate: {
       isAlphanumeric: true,
       notNull: true,
