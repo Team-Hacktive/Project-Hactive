@@ -16,28 +16,39 @@ describe('Problem routes', () => {
     let problem
     let dialogSuccess
 
-    beforeEach(async () => {
+    beforeEach(async() => {
 
-      problem = await Problem.create({
-        name: 'Test Problem',
-        prompt: 'This is a test problem, and this is the prompt for it',
-        level: '1',
-        progress: null
+      let prob = await Problem.create({
+          name: 'Test Problem',
+          prompt: 'This is a test problem, and this is the prompt for it',
+          level: '1',
+          progress: null
+      })
+      .then(createdProblem => {
+        problem = createdProblem
       })
 
-      dialogSuccess = await Dialog.create({
-        content: 'this is test content for the success dialog',
-        category: 'success'
-      })
-      .then(dialog => dialog.setProblem(problem))
+      let dialog = await await Dialog.create({
+          content: 'this is test content for the success dialog',
+          category: 'success'
+        })
+        .then(dialog => dialog.setProblem(problem))
+        .then(dialogWithProblem => {
+          dialogSuccess = dialogWithProblem
+        })
 
-      return Promise.all([problem, dialogSuccess])
+      return Promise.all([prob, dialog])
+
+
     })
 
     it('is a test, to begin with', () => {
-      console.log("!!!!!!!!!!!!!!!!!!", dialogSuccess)
+      console.log('!!!!!!!!!!!!!!!!!!', dialogSuccess)
     })
 
+    it('runs a very basic test', () => {
+      expect(2 + 2).to.equal(4)
+    })
 
   })
 })
