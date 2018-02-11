@@ -13,16 +13,29 @@ describe('Problem routes', () => {
   })
 
   describe('/api/problems', () => {
-    const problem = Problem.create({
-      id: '1',
-      name: 'Test Problem',
-      prompt: 'This is a test problem, and this is the prompt for it',
-      level: '1',
-      progress: 'null'
+    let problem
+    let dialogSuccess
 
+    beforeEach(async () => {
+
+      problem = await Problem.create({
+        name: 'Test Problem',
+        prompt: 'This is a test problem, and this is the prompt for it',
+        level: '1',
+        progress: null
+      })
+
+      dialogSuccess = await Dialog.create({
+        content: 'this is test content for the success dialog',
+        category: 'success'
+      })
+      .then(dialog => dialog.setProblem(problem))
+
+      return Promise.all([problem, dialogSuccess])
     })
-    const dialogSuccess = Dialog.create({
 
+    it('is a test, to begin with', () => {
+      console.log("!!!!!!!!!!!!!!!!!!", dialogSuccess)
     })
 
 
