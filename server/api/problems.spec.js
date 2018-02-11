@@ -16,8 +16,9 @@ describe('Problem routes', () => {
     let problem
     let dialogSuccess
 
+    //for some reason, async-await here required installing babel-polyfill again
+    //npm i -D babel-core babel-polyfill babel-preset-es2015 babel-preset-stage-0 babel-loader
     beforeEach(async() => {
-
       let prob = await Problem.create({
           name: 'Test Problem',
           prompt: 'This is a test problem, and this is the prompt for it',
@@ -27,8 +28,7 @@ describe('Problem routes', () => {
       .then(createdProblem => {
         problem = createdProblem
       })
-
-      let dialog = await await Dialog.create({
+      let dialog = await Dialog.create({
           content: 'this is test content for the success dialog',
           category: 'success'
         })
@@ -36,19 +36,30 @@ describe('Problem routes', () => {
         .then(dialogWithProblem => {
           dialogSuccess = dialogWithProblem
         })
-
+        //need to promise.all to make sure problem is available to be associated with dialog!
       return Promise.all([prob, dialog])
-
-
     })
 
-    it('is a test, to begin with', () => {
-      console.log('!!!!!!!!!!!!!!!!!!', dialogSuccess)
+
+    it('gets all the problems', () => {
+      return request(app)
+        .get('/api/problems')
+        .expect(200)
+        .then(res => {
+          expect(res.body).to.be.an('array')
+          expect(res.body[0].name).to.be.equal('Test Problem')
+        })
     })
 
-    it('runs a very basic test', () => {
-      expect(2 + 2).to.equal(4)
+    it('gets a single problem with associated dialogs', () => {
+      return request(app)
+      .get('/api/problems/1')
+      .expect(200)
+      .then(res => {
+        expect(res.body.dialogs).to.be.an('array')
+        expect(res.body.dialogs.length).to.equal(1)
+        expect(res.body.dialogs[0].category).to.equal('success')
+      })
     })
-
   })
 })
