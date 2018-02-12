@@ -1,14 +1,3 @@
-/**
- * Welcome to the seed file! This seed file uses a newer language feature called...
- *
- *                  -=-= ASYNC...AWAIT -=-=
- *
- * Async-await is a joy to use! Read more about it in the MDN docs:
- *
- * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function
- *
- * Now that you've got the main idea, check it out in practice below!
- */
 const db = require('../server/db')
 const {User, Dialog, Problem} = require('../server/db/models')
 
@@ -21,20 +10,21 @@ async function seed () {
     User.create({email: 'murphy@email.com', password: '123', level: '1'})
   ])
 
-  const dialogs = await Promise.all([
-    Dialog.create({content: 'Yay! You Passed!', category: 'success'}),
-    Dialog.create({content: "That's not the right answer", category: 'failure'}),
-    Dialog.create({content: 'Try using some nodes and stuff', category: 'hint'}),
-    Dialog.create({content: "You're inside a computer and boy is everything scary", category: 'story'})
-  ])
-
   const problems = await Promise.all([
     Problem.create({name: 'Make a linked list', prompt: 'Make a singly linked list. You should be able to add and remove nodes from it', level: 11, progress: null}),
     Problem.create({name: 'Remove the kth from last node', prompt: 'Oh no! The third node is corrupted. Remove it.', level: 12, progress: null})
   ])
 
+  const dialogs = await Promise.all([
+    Dialog.create({content: 'Yay! You Passed!', category: 'success'}).then(dialog => dialog.setProblem(problems[0])),
+    Dialog.create({content: "That's not the right answer", category: 'failure'}).then(dialog => dialog.setProblem(problems[0])),
+    Dialog.create({content: 'Try using some nodes and stuff', category: 'hint'}).then(dialog => dialog.setProblem(problems[0])),
+    Dialog.create({content: "You're inside a computer and boy is everything scary", category: 'story'}).then(dialog => dialog.setProblem(problems[0]))
+  ])
 
   console.log(`seeded ${users.length} users`)
+  console.log(`seeded ${problems.length} problems`)
+  console.log(`seeded ${dialogs.length} dialogs`)
   console.log(`seeded successfully`)
 }
 
