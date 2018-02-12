@@ -1,6 +1,7 @@
 const User = require('./user')
 const Dialog = require('./dialog')
 const Problem = require('./problem')
+const UserProblem = require('./userProblem')
 
 /**
  * 1. adds problemId to each Dialog instance
@@ -9,9 +10,12 @@ const Problem = require('./problem')
  */
 Dialog.belongsTo(Problem)
 Problem.hasMany(Dialog)
+User.belongsToMany(Problem, {through: UserProblem})
+Problem.belongsToMany(User, {through: UserProblem})
 
 module.exports = {
   User,
   Dialog,
-  Problem
+  Problem,
+  UserProblem
 }

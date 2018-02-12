@@ -6,13 +6,13 @@ async function seed () {
   console.log('db synced!')
 
   const users = await Promise.all([
-    User.create({email: 'cody@email.com', password: '123', level: '1'}),
-    User.create({email: 'murphy@email.com', password: '123', level: '1'})
+    User.create({email: 'cody@email.com', password: '123'}),
+    User.create({email: 'murphy@email.com', password: '123'})
   ])
 
   const problems = await Promise.all([
-    Problem.create({name: 'Make a linked list', prompt: 'Make a singly linked list. You should be able to add and remove nodes from it', level: 11, progress: null}),
-    Problem.create({name: 'Remove the kth from last node', prompt: 'Oh no! The third node is corrupted. Remove it.', level: 12, progress: null})
+    Problem.create({name: 'Make a linked list', prompt: 'Make a singly linked list. You should be able to add and remove nodes from it', level: 1, problemNumber: 1}),
+    Problem.create({name: 'Remove the kth from last node', prompt: 'Oh no! The third node is corrupted. Remove it.', level: 1, problemNumber: 2})
   ])
 
   const dialogs = await Promise.all([
