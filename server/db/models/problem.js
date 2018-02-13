@@ -23,8 +23,12 @@ const Problem = db.define('problem', {
         isInt: true,
       }
     },
-    Progress: {
-      type: Sequelize.TEXT, // or Sequelize.JSON / .JSONB
+    problemNumber: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+      validate: {
+        isInt: true,
+      }
     }
 })
 
