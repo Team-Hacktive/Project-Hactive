@@ -1,72 +1,53 @@
-import React, { Component } from 'react';
-import Draft, { Editor, EditorState} from 'draft-js';
-import CodeUtils from 'draft-js-code';
+// import React, { Component } from 'react';
+// import Draft, { Editor, EditorState} from 'draft-js';
+// import CodeUtils from 'draft-js-code';
 
-export class CodeEditor extends Component {
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import {connect} from 'react-redux'
+import {withRouter, Link} from 'react-router-dom'
+import { Editor, EditorState} from 'draft-js';
+import {logout} from '../store'
+import AceEditor from 'react-ace'
+import brace from 'brace';
+import 'brace/mode/javascript';
+import 'brace/theme/monokai';
+
+export default class CodeEditor extends Component {
   constructor(props) {
     super(props);
+    this.onChange = this.onChange.bind(this)
     this.state = {
-      editorState: this.props.editorState
-    };
+      code: ''
+    }
   }
 
-  // handleKeyCommand = (command) => {
-  //   const { editorState } = this.state;
-  //   let newState;
+  onChange = (obj) => {
+    this.setState({
+      code: obj
+    })
+  }
 
-  //   if (CodeUtils.hasSelectionInBlock(editorState)) {
-  //     newState = CodeUtils.handleKeyCommand(editorState, command);
-  //   }
-
-  //   if (!newState) {
-  //     newState = RichUtils.handleKeyCommand(editorState, command);
-  //   }
-
-  //   if (newState) {
-  //     this.onChange(newState);
-  //     return 'handled';
-  //   }
-  //   return 'not-handled';
-  // }
-
-  // keyBindingFn = (evt) => {
-  //   const { editorState } = this.state;
-  //   if (!CodeUtils.hasSelectionInBlock(editorState)) return Draft.getDefaultKeyBinding(evt);
-
-  //   const command = CodeUtils.getKeyBinding(evt);
-
-  //   return command || Draft.getDefaultKeyBinding(evt);
-  // }
-
-  // handleReturn = (evt) => {
-  //   const { editorState } = this.state;
-  //   if (!CodeUtils.hasSelectionInBlock(editorState)) return 'not-handled';
-
-  //   this.onChange(CodeUtils.handleReturn(evt, editorState));
-  //   return 'handled';
-  // }
-
-  // onTab = (evt) => {
-  //   const { editorState } = this.state;
-  //   if (!CodeUtils.hasSelectionInBlock(editorState)) return 'not-handled';
-
-  //   this.onChange(CodeUtils.onTab(evt, editorState));
-  //   return 'handled';
-  // }
-
-  render() {
-
-    console.log('WHAT IS THIS', this.state)
-
+  render () {
+    console.log('state', this.state)
     return (
-      <Editor
-        editorState={this.props.editorState}
-        onChange={this.props.onChange}
-        // keyBindingFn={this.keyBindingFn}
-        // handleKeyCommand={this.handleKeyCommand}
-        // handleReturn={this.handleReturn}
-        // onTab={this.onTab}
-      />
-    );
+      <AceEditor
+        mode="javascript"
+        theme="monokai"
+        name="UNIQUE_ID_OF_DIV"
+        onChange={this.onChange}
+        fontSize={20}
+        showPrintMargin={true}
+        showGutter={true}
+        highlightActiveLine={true}
+        value={`function add(a, b) { ${this.state.code} }`}
+        setOptions={{
+        enableBasicAutocompletion: false,
+        enableLiveAutocompletion: true,
+        enableSnippets: false,
+        showLineNumbers: true,
+        tabSize: 2,
+        }}/>
+    )
   }
 }
