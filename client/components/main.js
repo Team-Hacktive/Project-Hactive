@@ -9,14 +9,6 @@ import { Login, Signup } from "./auth-form";
 import { Router } from "react-router";
 import history from "../history";
 
-/**
- * COMPONENT
- *  The Main component is our 'picture frame' - it displays the navbar and anything
- *  else common to our entire app. The 'picture' inside the frame is the space
- *  rendered out by the component's `children`.
- */
-// const Main = (props) => {
-//   const {children, handleClick, isLoggedIn} = props
 
 class Main extends React.Component {
   constructor(props) {

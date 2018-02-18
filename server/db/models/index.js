@@ -10,6 +10,7 @@ const UserProblem = require('./userProblem')
  */
 Dialog.belongsTo(Problem)
 Problem.hasMany(Dialog)
+
 User.belongsToMany(Problem, {through: UserProblem})
 Problem.belongsToMany(User, {through: UserProblem})
 

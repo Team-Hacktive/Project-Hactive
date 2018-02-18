@@ -4,14 +4,16 @@ module.exports = router
 
 router.get('/', (req, res, next) => {
   User.findAll({
-    attributes: ['id', 'email']
+    attributes: ['id', 'email'],
   })
     .then(users => res.json(users))
     .catch(next)
 });
 
-//creates an association on the UserProblem join table by finding theuser and the problem, returning them via promise.all, and using sequelize association method to set the user on the problem
+
+//creates an association on the UserProblem join table
 router.post('/:userId/:level/:problemNumber', (req, res, next) => {
+  //need promise.all here because need both values for addUser
   Promise.all(
     [User.findOne({
       where: {
@@ -26,8 +28,8 @@ router.post('/:userId/:level/:problemNumber', (req, res, next) => {
     })]
   )
   .then(([user, problem]) => {
-    //the aforementioned sequelize method
-    user.addProblem(problem)
+    //addUser is a sequelize method
+    problem.addUser(user)
   })
   .then(() => res.sendStatus(200))
   .catch(next)

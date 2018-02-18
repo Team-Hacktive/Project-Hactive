@@ -23,7 +23,7 @@ async function seed () {
   ])
 
   const associations = await Promise.all([
-    users[0].addProblem(problems[0])
+    problems[0].addUser(users[0])
   ])
 
   console.log(`seeded ${users.length} users`)
