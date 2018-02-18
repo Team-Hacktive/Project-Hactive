@@ -10,13 +10,13 @@ import Levels from './Levels'
  * COMPONENT
  */
 export const UserHome = (props) => {
-  const {email, isLoggedIn, handleClick, userProblems} = props
+  const {email, isLoggedIn, handleClick, userProblems, allProblems} = props
   console.log("userhome renders with these props", props)
   return (
     <div>
       <h3>Welcome, {email}</h3>
       <h2>Which chapter would you like to select?</h2>
-      <Levels problems={userProblems} />
+      <Levels userProblems={userProblems} allProblems={allProblems} />
     </div>
   )
 }
@@ -28,6 +28,7 @@ const mapState = (state) => {
   return {
     // storeProps: state,
     userProblems: state.user.problems,
+    allProblems: state.problems,
     isLoggedIn: !!state.user.id,
     email: state.user.email
   }

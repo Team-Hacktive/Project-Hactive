@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Switch, Route, Link } from "react-router-dom";
-import { logout, me } from "../store";
+import { logout, me, getAllProblemsThunk} from "../store";
 import CodeEditor from "./CodeEditor";
 import UserHome from "./user-home";
 import { Login, Signup } from "./auth-form";
@@ -73,8 +73,8 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {
     loadInitialData() {
-      console.log("loadinitialdata fired");
       dispatch(me());
+      dispatch(getAllProblemsThunk())
     },
     handleClick() {
       dispatch(logout());
