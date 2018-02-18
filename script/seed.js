@@ -22,9 +22,14 @@ async function seed () {
     Dialog.create({content: "You're inside a computer and boy is everything scary", category: 'story'}).then(dialog => dialog.setProblem(problems[0]))
   ])
 
+  const associations = await Promise.all([
+    users[0].addProblem(problems[0])
+  ])
+
   console.log(`seeded ${users.length} users`)
   console.log(`seeded ${problems.length} problems`)
   console.log(`seeded ${dialogs.length} dialogs`)
+  console.log(`seeded ${associations.length} associations`)
   console.log(`seeded successfully`)
 }
 

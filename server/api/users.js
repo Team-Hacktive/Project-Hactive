@@ -4,15 +4,13 @@ module.exports = router
 
 router.get('/', (req, res, next) => {
   User.findAll({
-    // explicitly select only the id and email fields - even though
-    // users' passwords are encrypted, it won't help if we just
-    // send everything to anyone who asks!
-    attributes: ['id', 'email', 'level']
+    attributes: ['id', 'email']
   })
     .then(users => res.json(users))
     .catch(next)
 });
 
+//creates an association on the UserProblem join table by finding theuser and the problem, returning them via promise.all, and using sequelize association method to set the user on the problem
 router.post('/:userId/:level/:problemNumber', (req, res, next) => {
   Promise.all(
     [User.findOne({
@@ -28,7 +26,7 @@ router.post('/:userId/:level/:problemNumber', (req, res, next) => {
     })]
   )
   .then(([user, problem]) => {
-    console.log("AM I HITTING THIS?????", user, problem)
+    //the aforementioned sequelize method
     user.addProblem(problem)
   })
   .then(() => res.sendStatus(200))
