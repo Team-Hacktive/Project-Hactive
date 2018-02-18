@@ -19,7 +19,6 @@ class Main extends React.Component {
   }
 
   componentDidMount() {
-    console.log("component did mount from main fired");
     this.props.loadInitialData();
   }
 
@@ -53,7 +52,6 @@ class Main extends React.Component {
                   <Route path="/" component={UserHome} />
                 </Switch>
               )}
-              <Route component={Login} />
             </Switch>
           </div>
         </Router>
