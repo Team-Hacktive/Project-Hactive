@@ -23,7 +23,7 @@ describe('Problem routes', () => {
           name: 'Test Problem',
           prompt: 'This is a test problem, and this is the prompt for it',
           level: '1',
-          progress: null
+          problemNumber: '1'
       })
       .then(createdProblem => {
         problem = createdProblem
@@ -53,7 +53,7 @@ describe('Problem routes', () => {
 
     it('gets a single problem with associated dialogs', () => {
       return request(app)
-      .get('/api/problems/1')
+      .get('/api/problems/level/1/problem/1')
       .expect(200)
       .then(res => {
         expect(res.body.dialogs).to.be.an('array')
