@@ -9,26 +9,28 @@ const Levels = (props) => {
   //destructures props
   const {userProblems, allProblems} = props
 
-  //creates object of user's problem names and completion statuses
-  const userProbStatuses = userProblems.map(problem => {
-    const problemName = problem.name
-    const isComplete = problem.UserProblem.completed
-    return {[problemName]: isComplete}
+//gets id of last (i.e. most advanced) completed problem
+  const largestProblemId = userProblems.reduce((accum, currentVal) => {
+    if (currentVal.id > accum.id && currentVal.completed) {
+      accum = currentVal
+    }
+    return accum.id
   })
+
+
+  //when mapping over the allProblems, have the conditional on whether or not its clickable be if the problem's id is less than or equal to the largestProblemId + 1
+
   return (
 
     <div>
       {
         //maps through all problems
         allProblems && allProblems.map(problem => {
-          //sees if current problem is marked as "complete" in userProblemStatus array
-          //if so, returned div has "true" as 'clickable' prop
-          //THERE MUST BE A BETTER WAY TO DO THIS
-        const clickable = userProbStatuses.filter(p => {
-            return Object.keys(p)[0] === problem.name
-          })
           return (
-            <div key={problem.id} clickable={clickable}>
+            <div
+              key={problem.id}
+              clickable={problem.id <= largestProblemId + 1 ? 'true' : 'false'}
+            >
               Name: {problem.name}
               Level: {problem.level}
               Problem Number: {problem.problemNumber}
@@ -42,3 +44,10 @@ const Levels = (props) => {
 
 
 export default Levels
+
+  //creates object of user's problem names and completion statuses
+  // const userProbStatuses = userProblems.map(problem => {
+  //   const problemName = problem.name
+  //   const isComplete = problem.UserProblem.completed
+  //   return {[problemName]: isComplete}
+  // })
