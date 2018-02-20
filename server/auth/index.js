@@ -1,9 +1,15 @@
 const router = require('express').Router()
-const User = require('../db/models/user')
+const {User, Problem} = require('../db/models')
 module.exports = router
 
 router.post('/login', (req, res, next) => {
-  User.findOne({where: {email: req.body.email}})
+  User.findOne({
+    where: {
+      email: req.body.email
+  },
+  //gets all problems that user is associated with
+  include: [{model: Problem}]
+})
     .then(user => {
       if (!user) {
         res.status(401).send('User not found')
@@ -35,8 +41,18 @@ router.post('/logout', (req, res) => {
   res.redirect('/')
 })
 
-router.get('/me', (req, res) => {
-  res.json(req.user)
+router.get('/me', (req, res, next) => {
+  User.findOne({
+    where: {
+      id: req.user.id
+    },
+    //loads any problems associated with the user
+    include: [{
+      model: Problem
+    }]
+  })
+  .then(user => res.json(user))
+  .catch(next)
 })
 
 router.use('/google', require('./google'))

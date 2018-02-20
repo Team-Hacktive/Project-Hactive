@@ -2,21 +2,13 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Switch, Route, Link } from "react-router-dom";
-import { logout, me } from "../store";
+import { logout, me, getAllProblemsThunk} from "../store";
 import CodeEditor from "./CodeEditor";
 import UserHome from "./user-home";
 import { Login, Signup } from "./auth-form";
 import { Router } from "react-router";
 import history from "../history";
 
-/**
- * COMPONENT
- *  The Main component is our 'picture frame' - it displays the navbar and anything
- *  else common to our entire app. The 'picture' inside the frame is the space
- *  rendered out by the component's `children`.
- */
-// const Main = (props) => {
-//   const {children, handleClick, isLoggedIn} = props
 
 class Main extends React.Component {
   constructor(props) {
@@ -27,7 +19,6 @@ class Main extends React.Component {
   }
 
   componentDidMount() {
-    console.log("component did mount from main fired");
     this.props.loadInitialData();
   }
 
@@ -61,7 +52,6 @@ class Main extends React.Component {
                   <Route path="/" component={UserHome} />
                 </Switch>
               )}
-              <Route component={Login} />
             </Switch>
           </div>
         </Router>
@@ -83,8 +73,8 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {
     loadInitialData() {
-      console.log("loadinitialdata fired");
       dispatch(me());
+      dispatch(getAllProblemsThunk())
     },
     handleClick() {
       dispatch(logout());
