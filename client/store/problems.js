@@ -11,8 +11,7 @@ const getAllProblems = problems => ({type: GET_ALL_PROBLEMS, problems})
 
 //THUNKS
 export const getAllProblemsThunk = () =>
-dispatch =>
-console.log("GET ALL PROBLEMS THUNK RUNNING")
+  dispatch =>
     axios.get('/api/problems')
     .then(res => {
       dispatch(getAllProblems(res.data))
