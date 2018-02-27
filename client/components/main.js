@@ -8,6 +8,7 @@ import UserHome from "./user-home";
 import { Login, Signup } from "./auth-form";
 import { Router } from "react-router";
 import history from "../history";
+import TitlePage from './TitlePage'
 
 
 class Main extends React.Component {
@@ -26,17 +27,12 @@ class Main extends React.Component {
     const { isLoggedIn, handleClick } = this.props;
     return (
       <div>
-        {isLoggedIn ?
-          <a href="#" onClick={handleClick}>Logout</a>
-          :
-          null
-        }
         <Router history={history}>
-          <div>
+          <div className='titleScreen'>
           {!isLoggedIn ?
+            //component that always says 'Hacktive' and 'credits' and conditionally renders a signup or login thing
             <div>
-            <Link to="/login">Login</Link>
-            <Link to="/signup">Sign Up</Link>
+            <TitlePage/>
             </div>
             :
             null

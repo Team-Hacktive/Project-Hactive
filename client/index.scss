@@ -19,3 +19,19 @@ form div {
     margin: 1em;
     display: inline-block;
 }
+
+.titleScreen {
+    display: grid;
+    grid-template-columns: 20% auto 20%;
+    grid-template-rows: repeat(3, 30vh);
+    grid-gap: 1em;
+    background-color: green;
+}
+
+.toc {
+    display: grid;
+    grid-template-columns: 20% auto auto auto 20%;
+    grid-template-rows: repeat(5, 30vh);
+    grid-gap: 1em;
+    background-color: green;
+}
