@@ -25,9 +25,8 @@ form div {
     grid-template-columns: repeat(3,auto);
     grid-template-rows: repeat(2);
     background-color: aqua;
-    grid-template-areas:
-    "navbar navbar navbar"
-    "splash splash splash"
+    grid-template-areas: "navbar navbar navbar" ". splash ."
+
 }
 
 .toc {
@@ -48,4 +47,8 @@ form div {
 
 .splash {
     grid-area: splash;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: orange;
 }
