@@ -1,7 +1,5 @@
 import React from 'react'
 import {Login, Signup } from './auth-form'
-import { Switch, Route, Link } from "react-router-dom";
-
 
 const AuthHelper = (props) => {
   if (props.loginOrSignup === 'login') {
@@ -14,7 +12,7 @@ const AuthHelper = (props) => {
     )
   } else {
     return (
-      <div style={{color: 'red'}}>delete me</div>
+      <div />
     )
   }
 }

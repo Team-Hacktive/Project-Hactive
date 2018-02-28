@@ -22,10 +22,12 @@ form div {
 
 .titleScreen {
     display: grid;
-    grid-template-columns: 20% auto 20%;
-    grid-template-rows: repeat(3, 30vh);
-    grid-gap: 1em;
-    background-color: green;
+    grid-template-columns: repeat(3,auto);
+    grid-template-rows: repeat(2);
+    background-color: aqua;
+    grid-template-areas:
+    "navbar navbar navbar"
+    "splash splash splash"
 }
 
 .toc {
@@ -37,7 +39,13 @@ form div {
 }
 
 .navbar {
+    grid-area: navbar;
     display: flex;
     justify-content: flex-end;
     background-color: black;
+}
+
+
+.splash {
+    grid-area: splash;
 }
