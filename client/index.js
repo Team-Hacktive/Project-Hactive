@@ -6,8 +6,7 @@ import store from './store'
 import Main from './components/main'
 import {Router} from 'react-router'
 import history from './history'
-// establishes socket connection
-import './socket'
+
 
 ReactDOM.render(
   <Provider store={store}>
