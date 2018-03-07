@@ -22,13 +22,19 @@ form div {
     display: inline-block;
 }
 
+//colors
+$super-fuchsia: #FF00EF;
+$neon-green: #14FF00;
+$purplish: #D900FF;
+$turquoise: #00F9FF;
+
 .titleScreen {
     display: grid;
     width: 100vw;
     height: 100vh;
     grid-template-columns: 1fr 4fr 1fr;
     grid-template-rows: 1fr 7fr;
-    background-color: aqua;
+    background-color: black;
     grid-template-areas:
     "navbar navbar navbar"
     ". splash .";
@@ -38,9 +44,17 @@ form div {
     grid-area: navbar;
     display: flex;
     justify-content: flex-end;
-    background-color: black;
+    background: linear-gradient(to left, $turquoise , $super-fuchsia);
 }
 
+.button {
+    background-color: $purplish;
+    margin: 2em 1em;
+}
+
+.auth-card {
+    background-color: $super-fuchsia;
+}
 
 .splash {
     grid-area: splash;
@@ -48,7 +62,7 @@ form div {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    background-color: orange;
+    background-color: $neon-green;
 }
 
 .titleImage {

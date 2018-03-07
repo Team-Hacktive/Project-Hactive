@@ -28,20 +28,24 @@ class Main extends React.Component {
           <div>
             {!isLoggedIn ? (
               <div className="titleScreen">
+              {/*NAVBAR*/}
                 <div className="navbar">
                   <button
+                    className='button'
                     type="button"
                     onClick={() => this.setState({ loginOrSignup: 'login' })}
                   >
                     Login
                   </button>
                   <button
+                    className='button'
                     type="button"
                     onClick={() => this.setState({ loginOrSignup: 'signup' })}
                   >
                     Signup
                   </button>
                 </div>
+                {/*SPLASH*/}
                 <div className="splash">
                 <h1>HACKTIVE</h1>
                 <AuthHelper loginOrSignup={this.state.loginOrSignup} />
