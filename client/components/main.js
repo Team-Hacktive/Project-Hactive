@@ -45,6 +45,9 @@ class Main extends React.Component {
                 <div className="splash">
                 <h1>HACKTIVE</h1>
                 <AuthHelper loginOrSignup={this.state.loginOrSignup} />
+                <div>
+                <img className='titleImage' src={"/images/titleScreen.png"} />
+                </div>
                 </div>
               </div>
             ) : null}

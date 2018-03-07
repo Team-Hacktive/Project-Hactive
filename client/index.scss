@@ -1,5 +1,7 @@
 body {
-    font-family: sans-serif;
+    height: 100vh;
+    margin: 0;
+    display: flex;
 }
 
 a {
@@ -22,19 +24,14 @@ form div {
 
 .titleScreen {
     display: grid;
-    grid-template-columns: repeat(3,auto);
-    grid-template-rows: repeat(2);
+    width: 100vw;
+    height: 100vh;
+    grid-template-columns: 1fr 4fr 1fr;
+    grid-template-rows: 1fr 7fr;
     background-color: aqua;
-    grid-template-areas: "navbar navbar navbar" ". splash ."
-
-}
-
-.toc {
-    display: grid;
-    grid-template-columns: 20% auto auto auto 20%;
-    grid-template-rows: repeat(5, 30vh);
-    grid-gap: 1em;
-    background-color: green;
+    grid-template-areas:
+    "navbar navbar navbar"
+    ". splash .";
 }
 
 .navbar {
@@ -49,6 +46,20 @@ form div {
     grid-area: splash;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     align-items: center;
     background-color: orange;
+}
+
+.titleImage {
+    height: 50vh;
+    flex: 0 1 auto;
+}
+
+.toc {
+    display: grid;
+    grid-template-columns: 20% auto auto auto 20%;
+    grid-template-rows: repeat(5, 30vh);
+    grid-gap: 1em;
+    background-color: green;
 }
