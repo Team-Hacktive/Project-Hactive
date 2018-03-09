@@ -12,11 +12,13 @@ import AceEditor from 'react-ace'
 import brace from 'brace';
 import 'brace/mode/javascript';
 import 'brace/theme/monokai';
+import axios from 'axios'
 
 export default class CodeEditor extends Component {
   constructor(props) {
     super(props);
     this.onChange = this.onChange.bind(this)
+    this.onSubmit = this.onSubmit.bind(this)
     this.state = {
       code: ''
     }
@@ -28,9 +30,17 @@ export default class CodeEditor extends Component {
     })
   }
 
+  onSubmit = () => {
+    return axios.post('/api/compile', this.state)
+    .then(res => {
+      console.log('client data', res)
+    })
+  }
+
   render () {
     console.log('state', this.state)
     return (
+      <div className = "code-wrapper">
       <AceEditor
         mode="javascript"
         theme="monokai"
@@ -40,14 +50,16 @@ export default class CodeEditor extends Component {
         showPrintMargin={true}
         showGutter={true}
         highlightActiveLine={true}
-        value={`function add(a, b) { ${this.state.code} }`}
+        value={this.state.code}
         setOptions={{
         enableBasicAutocompletion: false,
         enableLiveAutocompletion: true,
         enableSnippets: false,
         showLineNumbers: true,
         tabSize: 2,
-        }}/>
+        }} />
+      <button onClick = {this.onSubmit}>submit</button>
+      </div>
     )
   }
 }

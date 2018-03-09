@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="0.002" tests="2" failures="0">
+  <testsuite name="Root Suite" timestamp="2018-03-09T01:25:02" tests="0" failures="0" time="0">
+  </testsuite>
+  <testsuite name="sum" timestamp="2018-03-09T01:25:02" tests="2" file="/testDockerContainer/specs/test_spec.js" failures="0" time="0.002">
+    <testcase name="sum sum of 2 and 2 returns 4" time="0.002" classname="sum of 2 and 2 returns 4">
+    </testcase>
+    <testcase name="sum sum of 1 and 1 returns 2" time="0" classname="sum of 1 and 1 returns 2">
+    </testcase>
+  </testsuite>
+</testsuites>

@@ -22,6 +22,7 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.15.3",
+    "bluebird": "^3.5.1",
     "body-parser": "^1.16.1",
     "brace": "^0.11.0",
     "compression": "^1.7.1",
@@ -51,6 +52,7 @@
     "redux-thunk": "^2.2.0",
     "sass-loader": "^6.0.6",
     "sequelize": "^4.28.6",
+    "shelljs": "^0.8.1",
     "style-loader": "^0.19.1"
   },
   "devDependencies": {
