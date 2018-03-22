@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {logout} from '../store'
+import {logout, getCurrentProblemThunk} from '../store'
 import Levels from './Levels'
 import Editor from './CodeEditor'
 
@@ -9,21 +9,27 @@ import Editor from './CodeEditor'
  * COMPONENT
  */
 class SingleProblem extends Component {
-    constructor(props) {
-      super(props);
-      this.state = {}
-    }
+	constructor(props) {
+		super(props);
+		this.state = {}
+	}
+
+	componentDidMount(){
+		//load problem from the database
+		console.log('my query param', this.props.params.match.params.id)
+		this.props.loadProblem(this.props.params.match.params.id)
+	}
 
   render(){
     console.log("singleProblem renders with these props", this.props)
     const {email, isLoggedIn, handleClick, userProblems, allProblems, params} = this.props
     return (
-        <div className='toc'>
-          {/* <a href="#" onClick={handleClick}>Logout</a> */}
-          <h3>Welcome, {email}</h3>
-          <Editor />
-        </div>
-      )
+			<div className='toc'>
+				{/* <a href="#" onClick={handleClick}>Logout</a> */}
+				<h3>Welcome, {email}</h3>
+				<Editor />
+      </div>
+    )
   }
   
 }
@@ -43,9 +49,12 @@ const mapState = (state, ownprops) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    handleClick () {
+     handleLogOut() {
       dispatch(logout())
-    }
+		},
+		loadProblem(id) {
+      dispatch(getCurrentProblemThunk(id))
+		}
   }
 }
 
