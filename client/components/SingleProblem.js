@@ -22,7 +22,6 @@ class SingleProblem extends Component {
 
   render(){
 		const {email, isLoggedIn, problem, params} = this.props
-		console.log("singleProblem renders with these props", problem)
     return (
 			<div className='toc'>
 				{/* <a href="#" onClick={handleClick}>Logout</a> */}

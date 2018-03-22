@@ -29,7 +29,6 @@ export default class CodeEditor extends Component {
   }
 
   render() {
-    console.log('state', this.state)
     return (
       <div>
         <div>
