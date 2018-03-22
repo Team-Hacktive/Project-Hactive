@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {logout, getCurrentProblemThunk} from '../store'
+import { NavLink } from 'react-router-dom'
 import Levels from './Levels'
 import Editor from './CodeEditor'
 
@@ -16,18 +17,21 @@ class SingleProblem extends Component {
 
 	componentDidMount(){
 		//load problem from the database
-		console.log('my query param', this.props.params.match.params.id)
 		this.props.loadProblem(this.props.params.match.params.id)
 	}
 
   render(){
-    console.log("singleProblem renders with these props", this.props)
-    const {email, isLoggedIn, handleClick, userProblems, allProblems, params} = this.props
+		const {email, isLoggedIn, problem, params} = this.props
+		console.log("singleProblem renders with these props", problem)
     return (
 			<div className='toc'>
 				{/* <a href="#" onClick={handleClick}>Logout</a> */}
-				<h3>Welcome, {email}</h3>
+				<h3>{problem ? problem.name : ''}</h3>
+				<h4>{problem ? problem.prompt : ''}</h4>
 				<Editor />
+				<NavLink to={'/'}>
+          <button>Go Back Home</button>
+        </NavLink>
       </div>
     )
   }
@@ -39,9 +43,8 @@ class SingleProblem extends Component {
  */
 const mapState = (state, ownprops) => {
   return {
-    params: ownprops,
-    userProblems: state.user.problems,
-    allProblems: state.problems,
+		params: ownprops,
+		problem: state.currentProblem,
     isLoggedIn: !!state.user.id,
     email: state.user.email
   }
