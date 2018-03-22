@@ -1,5 +1,7 @@
 body {
-    font-family: sans-serif;
+    height: 100vh;
+    margin: 0;
+    display: flex;
 }
 
 a {
@@ -18,4 +20,60 @@ nav a {
 form div {
     margin: 1em;
     display: inline-block;
+}
+
+//colors
+$super-fuchsia: #FF00EF;
+$neon-green: #14FF00;
+$purplish: #D900FF;
+$turquoise: #00F9FF;
+
+.titleScreen {
+    display: grid;
+    width: 100vw;
+    height: 100vh;
+    grid-template-columns: 1fr 4fr 1fr;
+    grid-template-rows: 1fr 7fr;
+    background-color: black;
+    grid-template-areas:
+    "navbar navbar navbar"
+    ". splash .";
+}
+
+.navbar {
+    grid-area: navbar;
+    display: flex;
+    justify-content: flex-end;
+    background: linear-gradient(to left, $turquoise , $super-fuchsia);
+}
+
+.button {
+    background-color: $purplish;
+    margin: 2em 1em;
+}
+
+.auth-card {
+    background-color: $super-fuchsia;
+}
+
+.splash {
+    grid-area: splash;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    background-color: $neon-green;
+}
+
+.titleImage {
+    height: 50vh;
+    flex: 0 1 auto;
+}
+
+.toc {
+    display: grid;
+    grid-template-columns: 20% auto auto auto 20%;
+    grid-template-rows: repeat(5, 30vh);
+    grid-gap: 1em;
+    background-color: green;
 }
