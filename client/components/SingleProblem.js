@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {logout} from '../store'
@@ -8,16 +8,24 @@ import Editor from './CodeEditor'
 /**
  * COMPONENT
  */
-export const SingleProblem = (props) => {
-  const {email, isLoggedIn, handleClick, userProblems, allProblems, params} = props
-  console.log("singleProblem renders with these props", props)
-  return (
-    <div className='toc'>
-      {/* <a href="#" onClick={handleClick}>Logout</a> */}
-      <h3>Welcome, {email}</h3>
-      <Editor />
-    </div>
-  )
+class SingleProblem extends Component {
+    constructor(props) {
+      super(props);
+      this.state = {}
+    }
+
+  render(){
+    console.log("singleProblem renders with these props", this.props)
+    const {email, isLoggedIn, handleClick, userProblems, allProblems, params} = this.props
+    return (
+        <div className='toc'>
+          {/* <a href="#" onClick={handleClick}>Logout</a> */}
+          <h3>Welcome, {email}</h3>
+          <Editor />
+        </div>
+      )
+  }
+  
 }
 
 /**
@@ -25,8 +33,6 @@ export const SingleProblem = (props) => {
  */
 const mapState = (state, ownprops) => {
   return {
-    // storeProps: state,
-    // currentPrblem: state,
     params: ownprops,
     userProblems: state.user.problems,
     allProblems: state.problems,
@@ -42,7 +48,6 @@ const mapDispatch = (dispatch) => {
     }
   }
 }
-
 
 export default connect(mapState, mapDispatch)(SingleProblem)
 
