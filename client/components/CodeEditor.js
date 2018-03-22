@@ -5,7 +5,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { withRouter, NavLink } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import { Editor, EditorState } from 'draft-js';
 import { logout } from '../store'
 import AceEditor from 'react-ace'
@@ -29,12 +29,8 @@ export default class CodeEditor extends Component {
   }
 
   render() {
-    console.log('state', this.state)
     return (
       <div>
-        <NavLink to={'/'}>
-          <button>Go Back Home</button>
-        </NavLink>
         <div>
           <AceEditor
             mode="javascript"
