@@ -8,12 +8,12 @@ import Editor from './CodeEditor'
 /**
  * COMPONENT
  */
-export const UserHome = (props) => {
-//   const {email, isLoggedIn, handleClick, userProblems, allProblems} = props
-  console.log("userhome renders with these props", props)
+export const SingleProblem = (props) => {
+  const {email, isLoggedIn, handleClick, userProblems, allProblems, params} = props
+  console.log("singleProblem renders with these props", props)
   return (
     <div className='toc'>
-      <a href="#" onClick={handleClick}>Logout</a>
+      {/* <a href="#" onClick={handleClick}>Logout</a> */}
       <h3>Welcome, {email}</h3>
       <Editor />
     </div>
@@ -23,10 +23,11 @@ export const UserHome = (props) => {
 /**
  * CONTAINER
  */
-const mapState = (state) => {
+const mapState = (state, ownprops) => {
   return {
     // storeProps: state,
     // currentPrblem: state,
+    params: ownprops,
     userProblems: state.user.problems,
     allProblems: state.problems,
     isLoggedIn: !!state.user.id,
@@ -43,12 +44,12 @@ const mapDispatch = (dispatch) => {
 }
 
 
-export default connect(mapState, mapDispatch)(UserHome)
+export default connect(mapState, mapDispatch)(SingleProblem)
 
 /**
  * PROP TYPES
  */
-UserHome.propTypes = {
+SingleProblem.propTypes = {
   email: PropTypes.string
 }
 

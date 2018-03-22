@@ -61,7 +61,7 @@ class Main extends React.Component {
               {isLoggedIn && (
                 <Switch>
                   {/* Routes placed here are only available after logging in */}
-                  <Route path="/singleProblem" component={SingleProblem} />
+                  <Route path="/singleProblem/:id" component={SingleProblem} />
                   <Route path="/editor" component={CodeEditor} />
                   <Route path="/home" component={UserHome} />
                   <Route path="/" component={UserHome} />
