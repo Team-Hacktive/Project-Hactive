@@ -24,7 +24,7 @@ const Levels = (props) => {
           return (
             <div key={problem.id}>
               {/*if the problem is less than or equal to 1 + the largest completed problem, you can click it*/}
-              <NavLink to={`/editor`}>
+              <NavLink to={`/singleProblem/${problem.id}`}>
                 <button disabled={problem.id < largestProblemId.id} >
                   Name: {problem.name}
                   Level: {problem.level}

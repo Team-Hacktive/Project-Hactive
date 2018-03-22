@@ -4,6 +4,7 @@ import { Switch, Route } from 'react-router-dom';
 import { logout, me, getAllProblemsThunk } from '../store';
 import CodeEditor from './CodeEditor';
 import UserHome from './user-home';
+import SingleProblem from './SingleProblem';
 import { Router } from 'react-router';
 import history from '../history';
 import AuthHelper from './AuthHelper';
@@ -60,6 +61,7 @@ class Main extends React.Component {
               {isLoggedIn && (
                 <Switch>
                   {/* Routes placed here are only available after logging in */}
+                  <Route path="/singleProblem" component={SingleProblem} />
                   <Route path="/editor" component={CodeEditor} />
                   <Route path="/home" component={UserHome} />
                   <Route path="/" component={UserHome} />
