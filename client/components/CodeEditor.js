@@ -18,7 +18,7 @@ export default class CodeEditor extends Component {
     super(props);
     this.onChange = this.onChange.bind(this);
     this.state = {
-      code: ''
+      code: `function add(a, b) {}`
     }
   }
 
@@ -29,6 +29,7 @@ export default class CodeEditor extends Component {
   }
 
   render() {
+    console.log('current state', this.state)
     return (
       <div>
         <div>
@@ -41,7 +42,7 @@ export default class CodeEditor extends Component {
             showPrintMargin={true}
             showGutter={true}
             highlightActiveLine={true}
-            value={`function add(a, b) { ${this.state.code} }`}
+            value={this.state.code}
             setOptions={{
               enableBasicAutocompletion: false,
               enableLiveAutocompletion: true,
