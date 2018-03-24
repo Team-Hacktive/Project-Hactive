@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {logout, getCurrentProblemThunk} from '../store'
+import {logout, getCurrentProblemThunk, getDialogsThunk} from '../store'
 import { NavLink } from 'react-router-dom'
 import Levels from './Levels'
 import Editor from './CodeEditor'
@@ -55,7 +55,8 @@ const mapDispatch = (dispatch) => {
       dispatch(logout())
 		},
 		loadProblem(id) {
-      dispatch(getCurrentProblemThunk(id))
+			dispatch(getCurrentProblemThunk(id))
+			dispatch(getDialogsThunk())
 		}
   }
 }

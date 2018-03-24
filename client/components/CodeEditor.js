@@ -17,6 +17,7 @@ export default class CodeEditor extends Component {
   constructor(props) {
     super(props);
     this.onChange = this.onChange.bind(this);
+    this.onSave = this.onSave.bind(this);
     this.state = {
       code: `function add(a, b) {}`
     }
@@ -26,6 +27,10 @@ export default class CodeEditor extends Component {
     this.setState({
       code: obj
     })
+  }
+
+  onSave(e){
+    console.log('I saved', e)
   }
 
   render() {
@@ -51,6 +56,7 @@ export default class CodeEditor extends Component {
               tabSize: 2,
             }} />
         </div>
+        <button onClick={this.onSave}>Save</button>
       </div>
     )
   }
