@@ -10,12 +10,18 @@ const userInput = ''
 const saveUserInput = input => ({type: SAVE_USER_INPUT, input})
 
 //THUNKS
-export const postUserInput = (input) =>
+export const postUserInput = (userId, problemId, input) =>
   dispatch =>
-    axios.post(``)
+    axios.get(`/api/users/${userId}/${problemId}`)
     .then(res => {
-        console.log('data is posted', red.data)
-    //   dispatch(getCurrentProblem(res.data))
+        console.log('data is posted', res.data)
+        if(!res.data){
+            //create association
+            axios.post(`/api/users/${userId}/${problemId}`)
+            .then(res => console.log(res.data))
+            .catch(err => console.log(err))
+        }
+        //add user input to existing association
     })
     .catch(err => console.log(err))
 

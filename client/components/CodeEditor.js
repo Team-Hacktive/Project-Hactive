@@ -7,17 +7,16 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { Editor, EditorState } from 'draft-js';
-import { logout } from '../store'
+import { logout, postUserInput } from '../store'
 import AceEditor from 'react-ace'
 import brace from 'brace';
 import 'brace/mode/javascript';
 import 'brace/theme/monokai';
 
-export default class CodeEditor extends Component {
+class CodeEditor extends Component {
   constructor(props) {
     super(props);
     this.onChange = this.onChange.bind(this);
-    this.onSave = this.onSave.bind(this);
     this.state = {
       code: `function add(a, b) {}`
     }
@@ -29,12 +28,10 @@ export default class CodeEditor extends Component {
     })
   }
 
-  onSave(e){
-    console.log('I saved', e)
-  }
-
   render() {
     console.log('current state', this.state)
+    const { problemId, userId, handleSave } = this.props;
+    console.log('my props', problemId, userId, handleSave)
     return (
       <div>
         <div>
@@ -56,8 +53,26 @@ export default class CodeEditor extends Component {
               tabSize: 2,
             }} />
         </div>
-        <button onClick={this.onSave}>Save</button>
+        <button onClick={() => handleSave(userId, problemId, this.state.code)}>Save</button>
       </div>
     )
   }
 }
+
+const mapState = state => {
+  return {
+    problemId: state.currentProblem.id,
+    userId: state.user.id
+  };
+};
+
+const mapDispatch = dispatch => {
+  return {
+    handleSave(userId, problemId, input) {
+      console.log('saving')
+      dispatch(postUserInput(userId, problemId, input));
+    }
+  };
+};
+
+export default connect(mapState, mapDispatch)(CodeEditor);

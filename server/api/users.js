@@ -10,23 +10,27 @@ router.get('/', (req, res, next) => {
     .catch(next)
 });
 
+//check if a user and problem are already associated
+router.get('/:userId/:problemId', (req, res, next) => {
+  Promise.all([
+    User.findById(req.params.userId),
+    Problem.findById(req.params.problemId)
+  ])
+  .then(([user, problem]) => {
+    // console.log('found user and problem', user, problem)
+    return problem.hasUser(user)
+  })
+  .then(result => res.json(result))
+  .catch(next)
+})
 
 //creates an association on the UserProblem join table
-router.post('/:userId/:level/:problemNumber', (req, res, next) => {
+router.post('/:userId/:problemId', (req, res, next) => {
   //need promise.all here because need both values for addUser
-  Promise.all(
-    [User.findOne({
-      where: {
-        id: req.params.userId,
-      }
-    }),
-    Problem.findOne({
-      where: {
-        problemNumber: req.params.problemNumber,
-        level: req.params.level
-      }
-    })]
-  )
+  Promise.all([
+    User.findById(req.params.userId),
+    Problem.findById(req.params.problemId)
+  ])
   .then(([user, problem]) => {
     //addUser is a sequelize method
     problem.addUser(user)
