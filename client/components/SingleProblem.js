@@ -16,7 +16,6 @@ class SingleProblem extends Component {
 	}
 
 	componentDidMount(){
-		//load problem from the database
 		this.props.loadProblem(this.props.params, this.props.userId)
 	}
 
@@ -33,7 +32,6 @@ class SingleProblem extends Component {
       </div>
     )
   }
-  
 }
 
 /**
@@ -54,9 +52,9 @@ const mapDispatch = (dispatch) => {
      handleLogOut() {
       dispatch(logout())
 		},
-		loadProblem(id, userId) {
-			dispatch(findOrCreateUserProblem(id, userId))
-			dispatch(getCurrentProblemThunk(id, userId))
+		loadProblem(problemId, userId) {
+			dispatch(findOrCreateUserProblem(problemId, userId))
+			dispatch(getCurrentProblemThunk(problemId, userId))
 		}
   }
 }
@@ -66,7 +64,5 @@ export default connect(mapState, mapDispatch)(SingleProblem)
 /**
  * PROP TYPES
  */
-// SingleProblem.propTypes = {
-//   email: PropTypes.string
-// }
+
 

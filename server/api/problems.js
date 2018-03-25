@@ -20,3 +20,7 @@ router.get('/:problemId/:userId', (req, res, next) => {
   .catch(next)
 })
 
+router.post('/:problemID/:userID', (req, res, next) => {
+  Problem
+})
+

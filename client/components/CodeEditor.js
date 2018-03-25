@@ -22,6 +22,13 @@ class CodeEditor extends Component {
     }
   }
 
+  componentDidMount(){
+    console.log('testing component did mount', this.props)
+    if(this.props.savedInput && this.props.savedInput.length){
+      this.setState({code: this.props.savedInput})
+    }
+  }
+
   onChange = (obj) => {
     this.setState({
       code: obj
@@ -29,7 +36,8 @@ class CodeEditor extends Component {
   }
 
   render() {
-    const { problemId, userId, handleSave } = this.props;
+    const { problemId, userId, handleSave,savedInput } = this.props;
+    console.log('saved input', this.state.code)
     return (
       <div>
         <div>
@@ -51,7 +59,7 @@ class CodeEditor extends Component {
               tabSize: 2,
             }} />
         </div>
-        <button onClick={() => handleSave(userId, problemId, this.state.code)}>Save</button>
+        <button onClick={() => handleSave(problemId, userId, this.state.code)}>Save</button>
       </div>
     )
   }
@@ -59,6 +67,7 @@ class CodeEditor extends Component {
 
 const mapState = state => {
   return {
+    savedInput: state.currentProblem.users ? state.currentProblem.users[0].UserProblem.savedInput : '',
     problemId: state.currentProblem ? state.currentProblem.id : null,
     userId: state.user.id
   };
@@ -66,8 +75,8 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    handleSave(userId, problemId, input) {
-      dispatch(postUserInput(userId, problemId, input));
+    handleSave(problemId, userId, input) {
+      dispatch(postUserInput(problemId, userId, input));
     }
   };
 };

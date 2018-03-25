@@ -29,9 +29,7 @@ export const findOrCreateUserProblem = (problemId, userId) => {
       if(!res.data){
           //create association
           axios.post(`/api/users/${userId}/${problemId}`)
-          //add user input to new association
           .then(res => {
-            console.log('association created', res.data)
             dispatch(userProblemAssociated(res.data))
           })
           .catch(err => console.log(err))
