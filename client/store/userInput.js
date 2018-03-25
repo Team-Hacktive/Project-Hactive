@@ -1,4 +1,5 @@
 import axios from 'axios'
+import user from './user';
 
 //ACTION TYPES
 const SAVE_USER_INPUT = 'SAVE_USER_INPUT'
@@ -13,6 +14,7 @@ const saveUserInput = input => ({type: SAVE_USER_INPUT, input})
 
 
 export const postUserInput = (problemId, userId, input) =>{
+	console.log('attemting to save', problemId, userId, input)
 	return (dispatch) => {
 		axios.post(`/api/problems/${problemId}/${userId}`, input)
 		.then(res => {
@@ -22,8 +24,6 @@ export const postUserInput = (problemId, userId, input) =>{
 	.catch(err => console.log(err))
 	}
 }
-  
-    
 
 //REDUCER
 export default function(state = userInput, action) {
