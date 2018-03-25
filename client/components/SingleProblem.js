@@ -41,7 +41,7 @@ class SingleProblem extends Component {
  */
 const mapState = (state, ownprops) => {
   return {
-		params: ownprops.match.params.id,
+		params: parseInt(ownprops.match.params.id),
 		problem: state.currentProblem,
     isLoggedIn: !!state.user.id,
 		email: state.user.email,
@@ -55,9 +55,7 @@ const mapDispatch = (dispatch) => {
       dispatch(logout())
 		},
 		loadProblem(id, userId) {
-			// dispatch(findOrCreateUserProblem(id, userId))
-			// .then(res => dispatch(getCurrentProblemThunk(id, userId)))
-			// .catch(err=> console.log(err))
+			dispatch(findOrCreateUserProblem(id, userId))
 			dispatch(getCurrentProblemThunk(id, userId))
 		}
   }
@@ -68,7 +66,7 @@ export default connect(mapState, mapDispatch)(SingleProblem)
 /**
  * PROP TYPES
  */
-SingleProblem.propTypes = {
-  email: PropTypes.string
-}
+// SingleProblem.propTypes = {
+//   email: PropTypes.string
+// }
 

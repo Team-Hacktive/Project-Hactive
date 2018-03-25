@@ -2,17 +2,8 @@ const router = require('express').Router()
 const {User, Problem} = require('../db/models')
 module.exports = router
 
-router.get('/', (req, res, next) => {
-  User.findAll({
-    attributes: ['id', 'email'],
-  })
-    .then(users => res.json(users))
-    .catch(next)
-});
-
 //check if a user and problem are already associated
 router.get('/:userId/:problemId', (req, res, next) => {
-  console.log('********************* I work until here')
   Promise.all([
     User.findById(req.params.userId),
     Problem.findById(req.params.problemId)
@@ -37,4 +28,12 @@ router.post('/:userId/:problemId', (req, res, next) => {
   })
   .then(() => res.sendStatus(200))
   .catch(next)
+});
+
+router.get('/', (req, res, next) => {
+  User.findAll({
+    attributes: ['id', 'email'],
+  })
+    .then(users => res.json(users))
+    .catch(next)
 });

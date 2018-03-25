@@ -10,7 +10,6 @@ import Levels from './Levels'
  */
 export const UserHome = (props) => {
   const {email, isLoggedIn, handleClick, userProblems, allProblems} = props
-  console.log("userhome renders with these props", props)
   return (
     <div className='toc'>
       <a href="#" onClick={handleClick}>Logout</a>

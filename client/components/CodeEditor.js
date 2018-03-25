@@ -29,7 +29,6 @@ class CodeEditor extends Component {
   }
 
   render() {
-    console.log('current state', this.state)
     const { problemId, userId, handleSave } = this.props;
     return (
       <div>
@@ -60,7 +59,7 @@ class CodeEditor extends Component {
 
 const mapState = state => {
   return {
-    problemId: state.currentProblem.id,
+    problemId: state.currentProblem ? state.currentProblem.id : null,
     userId: state.user.id
   };
 };
