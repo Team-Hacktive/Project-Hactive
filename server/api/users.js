@@ -12,12 +12,12 @@ router.get('/', (req, res, next) => {
 
 //check if a user and problem are already associated
 router.get('/:userId/:problemId', (req, res, next) => {
+  console.log('********************* I work until here')
   Promise.all([
     User.findById(req.params.userId),
     Problem.findById(req.params.problemId)
   ])
   .then(([user, problem]) => {
-    // console.log('found user and problem', user, problem)
     return problem.hasUser(user)
   })
   .then(result => res.json(result))

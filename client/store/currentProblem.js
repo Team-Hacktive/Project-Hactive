@@ -10,9 +10,9 @@ const currentProblem = []
 const getCurrentProblem = problem => ({type: GET_CURRENT_PROBLEM, problem})
 
 //THUNKS
-export const getCurrentProblemThunk = (problemId) =>
+export const getCurrentProblemThunk = (problemId, userId) =>
   dispatch =>
-    axios.get(`/api/problems/${problemId}`)
+    axios.get(`/api/problems/${problemId}/${userId}`)
     .then(res => {
       dispatch(getCurrentProblem(res.data))
     })

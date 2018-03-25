@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {logout, getCurrentProblemThunk, getDialogsThunk} from '../store'
+import {logout, getCurrentProblemThunk, findOrCreateUserProblem} from '../store'
 import { NavLink } from 'react-router-dom'
 import Levels from './Levels'
 import Editor from './CodeEditor'
@@ -17,14 +17,13 @@ class SingleProblem extends Component {
 
 	componentDidMount(){
 		//load problem from the database
-		this.props.loadProblem(this.props.params.match.params.id)
+		this.props.loadProblem(this.props.params, this.props.userId)
 	}
 
   render(){
-		const {email, isLoggedIn, problem, params} = this.props
+		const {email, isLoggedIn, problem, params, userId} = this.props
     return (
 			<div className='toc'>
-				{/* <a href="#" onClick={handleClick}>Logout</a> */}
 				<h3>{problem ? problem.name : ''}</h3>
 				<h4>{problem ? problem.prompt : ''}</h4>
 				<Editor />
@@ -42,10 +41,11 @@ class SingleProblem extends Component {
  */
 const mapState = (state, ownprops) => {
   return {
-		params: ownprops,
+		params: ownprops.match.params.id,
 		problem: state.currentProblem,
     isLoggedIn: !!state.user.id,
-    email: state.user.email
+		email: state.user.email,
+		userId: state.user.id
   }
 }
 
@@ -54,9 +54,11 @@ const mapDispatch = (dispatch) => {
      handleLogOut() {
       dispatch(logout())
 		},
-		loadProblem(id) {
-			dispatch(getCurrentProblemThunk(id))
-			dispatch(getDialogsThunk())
+		loadProblem(id, userId) {
+			// dispatch(findOrCreateUserProblem(id, userId))
+			// .then(res => dispatch(getCurrentProblemThunk(id, userId)))
+			// .catch(err=> console.log(err))
+			dispatch(getCurrentProblemThunk(id, userId))
 		}
   }
 }

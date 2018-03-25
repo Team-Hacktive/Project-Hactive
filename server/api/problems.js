@@ -9,15 +9,13 @@ router.get('/', (req, res, next) => {
   .catch(next)
 })
 
-router.get('/dialogs', (req, res, next) =>{
-  Dialog.findAll()
-  .then(dialogs => res.json(dialogs))
-  .catch(next)
-})
-
-//get a specific problem with associated dialog
-router.get('/:problemId', (req, res, next) => {
-  Problem.findById(req.params.problemId)
+router.get('/:problemId/:userId', (req, res, next) => {
+  Problem.findOne({
+    where: {
+      id: req.params.problemId,
+    },
+    include: [{model: Dialog}, {model: User, where: {id: req.params.userId}, through: { attributes: ['savedInput']} }]
+  })
   .then(problem => res.json(problem))
   .catch(next)
 })

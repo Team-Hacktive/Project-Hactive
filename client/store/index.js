@@ -6,9 +6,8 @@ import user from './user'
 import problems from './problems'
 import currentProblem from './currentProblem'
 import userInput from './userInput'
-import dialogs from './dialogs'
 
-const reducer = combineReducers({user, problems, currentProblem, userInput, dialogs})
+const reducer = combineReducers({user, problems, currentProblem, userInput})
 const middleware = composeWithDevTools(applyMiddleware(
   thunkMiddleware,
   createLogger({collapsed: true})
@@ -20,4 +19,3 @@ export * from './user'
 export * from './problems'
 export * from './currentProblem'
 export * from './userInput'
-export * from './dialogs'

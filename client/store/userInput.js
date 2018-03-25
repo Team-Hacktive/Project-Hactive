@@ -10,20 +10,44 @@ const userInput = ''
 const saveUserInput = input => ({type: SAVE_USER_INPUT, input})
 
 //THUNKS
-export const postUserInput = (userId, problemId, input) =>
-  dispatch =>
+export const findOrCreateUserProblem = (problemId, userId) => {
+    dispatch =>
     axios.get(`/api/users/${userId}/${problemId}`)
     .then(res => {
         console.log('data is posted', res.data)
         if(!res.data){
             //create association
             axios.post(`/api/users/${userId}/${problemId}`)
-            .then(res => console.log(res.data))
+            //add user input to new association
+            .then(res => console.log('association created'))
             .catch(err => console.log(err))
         }
-        //add user input to existing association
     })
     .catch(err => console.log(err))
+}
+
+export const postUserInput = (userId, problemId, input) =>{
+    console.log('i was saved')
+    dispatch =>
+    axios.get(`/api/users/${userId}/${problemId}`)
+    .then(res => {
+        console.log('data is posted', res.data)
+        if(!res.data){
+            //create association
+            axios.post(`/api/users/${userId}/${problemId}`)
+            //add user input to new association
+            .then(res => {
+
+            })
+            .catch(err => console.log(err))
+        }else{
+            //add user input to existing association
+        }
+    })
+    .catch(err => console.log(err))
+}
+  
+    
 
 //REDUCER
 export default function(state = userInput, action) {

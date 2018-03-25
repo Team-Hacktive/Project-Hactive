@@ -31,7 +31,6 @@ class CodeEditor extends Component {
   render() {
     console.log('current state', this.state)
     const { problemId, userId, handleSave } = this.props;
-    console.log('my props', problemId, userId, handleSave)
     return (
       <div>
         <div>
@@ -69,7 +68,6 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {
     handleSave(userId, problemId, input) {
-      console.log('saving')
       dispatch(postUserInput(userId, problemId, input));
     }
   };
