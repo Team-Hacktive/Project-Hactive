@@ -5,6 +5,7 @@ import {logout, getCurrentProblemThunk, findOrCreateUserProblem, clearCurrentPro
 import { NavLink } from 'react-router-dom'
 import Levels from './Levels'
 import Editor from './CodeEditor'
+import axios from 'axios'
 
 /**
  * COMPONENT
@@ -16,6 +17,17 @@ class SingleProblem extends Component {
 	}
 
 	componentDidMount(){
+		//Find or create user <-> problem association in UserProblem table 
+		axios.get(`/api/users/${this.props.userId}/${this.props.problem.id}`)
+		.then(res => {
+			if(!res.data){
+				//create association
+				axios.post(`/api/users/${userId}/${problemId}`)
+				.then(res => {
+					dispatch(userProblemAssociated(res.data))
+				})
+			}})
+		.catch(err => console.log(err))
 		this.props.loadProblem(this.props.params, this.props.userId)
 	}
 
@@ -57,8 +69,6 @@ const mapDispatch = (dispatch) => {
       dispatch(logout())
 		},
 		loadProblem(problemId, userId) {
-			//creates association in UserProblem table
-			dispatch(findOrCreateUserProblem(problemId, userId))
 			dispatch(getCurrentProblemThunk(problemId, userId))
 		},
 		clearProblem(){
