@@ -11,14 +11,10 @@ const userInput = ''
 const saveUserInput = input => ({type: SAVE_USER_INPUT, input})
 
 //THUNKS
-
-
 export const postUserInput = (problemId, userId, input) =>{
-	console.log('attemting to save', problemId, userId, input)
 	return (dispatch) => {
 		axios.post(`/api/problems/${problemId}/${userId}`, input)
 		.then(res => {
-			console.log('data was saved', res.data)
 			dispatch(saveUserInput(input))
 		})
 	.catch(err => console.log(err))

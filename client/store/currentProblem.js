@@ -28,17 +28,17 @@ export const findOrCreateUserProblem = (problemId, userId) => {
   return (dispatch) => {
   axios.get(`/api/users/${userId}/${problemId}`)
   .then(res => {
-      if(!res.data){
-          //create association
-          axios.post(`/api/users/${userId}/${problemId}`)
-          .then(res => {
-            dispatch(userProblemAssociated(res.data))
-          })
-          .catch(err => console.log(err))
-      }else{
+    if(!res.data){
+      //create association
+      axios.post(`/api/users/${userId}/${problemId}`)
+      .then(res => {
         dispatch(userProblemAssociated(res.data))
-      }
-      return 'done' 
+      })
+      .catch(err => console.log(err))
+    }else{
+      dispatch(userProblemAssociated(res.data))
+    }
+    return 'done' 
   })
   .catch(err => console.log(err))
   }

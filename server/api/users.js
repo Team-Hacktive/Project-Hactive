@@ -9,6 +9,7 @@ router.get('/:userId/:problemId', (req, res, next) => {
     Problem.findById(req.params.problemId)
   ])
   .then(([user, problem]) => {
+    //return true or false
     return problem.hasUser(user)
   })
   .then(result => res.json(result))
