@@ -19,10 +19,6 @@ class SingleProblem extends Component {
 		this.props.loadProblem(this.props.params, this.props.userId)
 	}
 
-	componentWillUnmount(){
-		this.props.clearProblem()
-	}
-
   render(){
 		const {email, isLoggedIn, problem, params, userId} = this.props
 		let codeInput = ''
