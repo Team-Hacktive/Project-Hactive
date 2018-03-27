@@ -22,9 +22,10 @@ class CodeEditor extends Component {
     }
   }
 
-  componentDidMount(){
-    if(this.props.savedInput && this.props.savedInput.length){
-      this.setState({code: this.props.savedInput})
+  //receiving code input as a prop from singleProblem once that is done loading from the db api call
+  componentWillReceiveProps(nextprop){
+    if(nextprop.codeInput && nextprop.codeInput.length){
+      this.setState({code: nextprop.codeInput})
     }
   }
 
@@ -35,7 +36,7 @@ class CodeEditor extends Component {
   }
 
   render() {
-    const { problemId, userId, handleSave,savedInput } = this.props;
+    const { problemId, userId, handleSave, codeInput } = this.props;
     return (
       <div>
         <div>
@@ -55,18 +56,17 @@ class CodeEditor extends Component {
               enableSnippets: false,
               showLineNumbers: true,
               tabSize: 2,
-            }} />
+          }} />
         </div>
-        <button onClick={() => handleSave(problemId, userId, {savedInput: this.state.code})}>Save</button>
-      </div>
-    )
-  }
+      <button onClick={() => handleSave(problemId, userId, {savedInput: this.state.code})}>Save</button>
+    </div>
+  )}
 }
 
-const mapState = state => {
+const mapState = (state, ownprops) => {
   return {
-    savedInput: state.currentProblem.users ? state.currentProblem.users[0].UserProblem.savedInput : '',
-    problemId: state.currentProblem ? state.currentProblem.id : null,
+    codeInput: ownprops.codeInput,
+    problemId: state.currentProblem.id,
     userId: state.user.id
   };
 };
