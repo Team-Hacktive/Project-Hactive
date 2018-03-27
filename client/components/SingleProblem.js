@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {logout, getCurrentProblemThunk} from '../store'
+import {logout, getCurrentProblemThunk, findOrCreateUserProblem, clearCurrentProblem} from '../store'
 import { NavLink } from 'react-router-dom'
 import Levels from './Levels'
 import Editor from './CodeEditor'
@@ -16,25 +16,26 @@ class SingleProblem extends Component {
 	}
 
 	componentDidMount(){
-		//load problem from the database
-		this.props.loadProblem(this.props.params.match.params.id)
+		this.props.loadProblem(this.props.params, this.props.userId)
 	}
 
   render(){
-		const {email, isLoggedIn, problem, params} = this.props
+		const {email, isLoggedIn, problem, params, userId} = this.props
+		let codeInput = ''
+		if(problem.users){
+			codeInput = problem.users[0].UserProblem.savedInput
+		}
     return (
 			<div className='toc'>
-				{/* <a href="#" onClick={handleClick}>Logout</a> */}
 				<h3>{problem ? problem.name : ''}</h3>
 				<h4>{problem ? problem.prompt : ''}</h4>
-				<Editor />
+				<Editor codeInput={codeInput}/>
 				<NavLink to={'/'}>
           <button>Go Back Home</button>
         </NavLink>
       </div>
     )
   }
-  
 }
 
 /**
@@ -42,10 +43,11 @@ class SingleProblem extends Component {
  */
 const mapState = (state, ownprops) => {
   return {
-		params: ownprops,
+		params: parseInt(ownprops.match.params.id),
 		problem: state.currentProblem,
     isLoggedIn: !!state.user.id,
-    email: state.user.email
+		email: state.user.email,
+		userId: state.user.id,
   }
 }
 
@@ -54,8 +56,13 @@ const mapDispatch = (dispatch) => {
      handleLogOut() {
       dispatch(logout())
 		},
-		loadProblem(id) {
-      dispatch(getCurrentProblemThunk(id))
+		loadProblem(problemId, userId) {
+			//creates association in UserProblem table
+			dispatch(findOrCreateUserProblem(problemId, userId))
+			dispatch(getCurrentProblemThunk(problemId, userId))
+		},
+		clearProblem(){
+			dispatch(clearCurrentProblem())
 		}
   }
 }
@@ -65,7 +72,5 @@ export default connect(mapState, mapDispatch)(SingleProblem)
 /**
  * PROP TYPES
  */
-SingleProblem.propTypes = {
-  email: PropTypes.string
-}
+
 

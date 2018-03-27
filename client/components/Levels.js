@@ -14,13 +14,11 @@ const Levels = (props) => {
     return accum.id
   })
 
-  console.log('largestProblemId???', largestProblemId)
   return (
     <div>
       {
         //maps through all problems
         allProblems.length && allProblems.map(problem => {
-          console.log('what is this', problem);
           return (
             <div key={problem.id}>
               {/*if the problem is less than or equal to 1 + the largest completed problem, you can click it*/}
