@@ -24,8 +24,8 @@ class CodeEditor extends Component {
 
   //receiving code input as a prop from singleProblem once that is done loading from the db api call
   componentWillReceiveProps(nextprop){
-    if(nextprop.codeInput && nextprop.codeInput.length){
-      this.setState({code: nextprop.codeInput})
+    if(nextprop.userInput && nextprop.userInput.length){
+      this.setState({code: nextprop.userInput})
     }
   }
 
@@ -36,7 +36,7 @@ class CodeEditor extends Component {
   }
 
   render() {
-    const { problemId, userId, handleSave, codeInput } = this.props;
+    const { problemId, userId, handleSave, userInput } = this.props;
     return (
       <div>
         <div>
@@ -65,7 +65,7 @@ class CodeEditor extends Component {
 
 const mapState = (state, ownprops) => {
   return {
-    codeInput: ownprops.codeInput,
+    userInput: ownprops.userInput,
     problemId: state.currentProblem.id,
     userId: state.user.id
   };

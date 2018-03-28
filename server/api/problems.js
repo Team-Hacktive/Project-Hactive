@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const { Problem, Dialog, User, UserProblem } = require('../db/models')
+const { Problem, Dialog } = require('../db/models')
 module.exports = router
 
 //get all problems
@@ -15,27 +15,8 @@ router.get('/:problemId/:userId', (req, res, next) => {
     where: {
       id: req.params.problemId,
     },
-    include: [{model: Dialog}, {model: User, where: {id: req.params.userId}, through: { attributes: ['savedInput']} }]
+    include: [{model: Dialog}]
   })
   .then(problem => res.json(problem))
   .catch(next)
 })
-
-//Update the UserProblem join table 
-router.post('/:problemId/:userId', (req, res, next) => {
-  UserProblem.findOne({
-    where: {
-      problemId: req.params.problemId,
-      userId: req.params.userId
-    }
-  })
-  .then(problem => {
-    problem.update(req.body)
-  })
-    .then(data => {
-    res.sendStatus(204)
-  })
-  .catch(next)
-
-})
-

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {logout, getCurrentProblemThunk, findOrCreateUserProblem, clearCurrentProblem} from '../store'
+import {logout, getCurrentProblemThunk, getUserInputThunk, clearCurrentProblem} from '../store'
 import { NavLink } from 'react-router-dom'
 import Levels from './Levels'
 import Editor from './CodeEditor'
@@ -28,20 +28,17 @@ class SingleProblem extends Component {
 				})
 			}})
 		.catch(err => console.log(err))
+
 		this.props.loadProblem(this.props.params, this.props.userId)
 	}
 
   render(){
-		const {email, isLoggedIn, problem, params, userId} = this.props
-		let codeInput = ''
-		if(problem.users){
-			codeInput = problem.users[0].UserProblem.savedInput
-		}
+		const {email, isLoggedIn, problem, params, userId, userInput} = this.props
     return (
 			<div className='toc'>
 				<h3>{problem ? problem.name : ''}</h3>
 				<h4>{problem ? problem.prompt : ''}</h4>
-				<Editor codeInput={codeInput}/>
+				<Editor userInput={userInput}/>
 				<NavLink to={'/'}>
           <button>Go Back Home</button>
         </NavLink>
@@ -60,6 +57,7 @@ const mapState = (state, ownprops) => {
     isLoggedIn: !!state.user.id,
 		email: state.user.email,
 		userId: state.user.id,
+		userInput: state.userInput
   }
 }
 
@@ -69,6 +67,7 @@ const mapDispatch = (dispatch) => {
       dispatch(logout())
 		},
 		loadProblem(problemId, userId) {
+			dispatch(getUserInputThunk(problemId, userId))
 			dispatch(getCurrentProblemThunk(problemId, userId))
 		},
 		clearProblem(){
