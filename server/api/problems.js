@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const { Problem, Dialog, User } = require('../db/models')
+const { Problem, Dialog } = require('../db/models')
 module.exports = router
 
 //get all problems
@@ -9,16 +9,14 @@ router.get('/', (req, res, next) => {
   .catch(next)
 })
 
-//get a specific problem with associated dialog
-router.get('/:problemId', (req, res, next) => {
+//Get a single problem and its associated user
+router.get('/:problemId/:userId', (req, res, next) => {
   Problem.findOne({
     where: {
       id: req.params.problemId,
-      // problemNumber: req.params.problemNumber
     },
-    include: [{model: Dialog}, {model: User}]
+    include: [{model: Dialog}]
   })
   .then(problem => res.json(problem))
   .catch(next)
 })
-

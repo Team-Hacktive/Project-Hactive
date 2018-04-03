@@ -10,13 +10,15 @@ const currentProblem = []
 const getCurrentProblem = problem => ({type: GET_CURRENT_PROBLEM, problem})
 
 //THUNKS
-export const getCurrentProblemThunk = (problemId) =>
-  dispatch =>
-    axios.get(`/api/problems/${problemId}`)
+export const getCurrentProblemThunk = (problemId, userId) => {
+  return (dispatch) => {
+    axios.get(`/api/problems/${problemId}/${userId}`)
     .then(res => {
       dispatch(getCurrentProblem(res.data))
     })
     .catch(err => console.log(err))
+  }
+}
 
 //REDUCER
 export default function(state = currentProblem, action) {

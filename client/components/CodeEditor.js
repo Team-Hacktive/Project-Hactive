@@ -7,18 +7,26 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { Editor, EditorState } from 'draft-js';
-import { logout } from '../store'
+import { logout, postUserInput } from '../store'
 import AceEditor from 'react-ace'
 import brace from 'brace';
 import 'brace/mode/javascript';
 import 'brace/theme/monokai';
 
-export default class CodeEditor extends Component {
+class CodeEditor extends Component {
   constructor(props) {
     super(props);
     this.onChange = this.onChange.bind(this);
     this.state = {
-      code: ''
+      code: `function add(a, b) {}`
+    }
+  }
+
+  // Receiving code input as a prop from singleProblem once that is done loading from the db api call
+  // This has worked 100% of the time
+  componentWillReceiveProps(nextprop){
+    if(nextprop.userInput && nextprop.userInput.length){
+      this.setState({code: nextprop.userInput})
     }
   }
 
@@ -29,6 +37,8 @@ export default class CodeEditor extends Component {
   }
 
   render() {
+    const { problemId, userId, handleSave, userInput } = this.props;
+    console.log('state', this.state)
     return (
       <div>
         <div>
@@ -41,16 +51,34 @@ export default class CodeEditor extends Component {
             showPrintMargin={true}
             showGutter={true}
             highlightActiveLine={true}
-            value={`function add(a, b) { ${this.state.code} }`}
+            value={this.state.code}
             setOptions={{
               enableBasicAutocompletion: false,
               enableLiveAutocompletion: true,
               enableSnippets: false,
               showLineNumbers: true,
               tabSize: 2,
-            }} />
+          }} />
         </div>
-      </div>
-    )
-  }
+      <button onClick={() => handleSave(problemId, userId, {savedInput: this.state.code})}>Save</button>
+    </div>
+  )}
 }
+
+const mapState = (state, ownprops) => {
+  return {
+    userInput: ownprops.userInput,
+    problemId: state.currentProblem.id,
+    userId: state.user.id
+  };
+};
+
+const mapDispatch = dispatch => {
+  return {
+    handleSave(problemId, userId, input) {
+      dispatch(postUserInput(problemId, userId, input));
+    }
+  };
+};
+
+export default connect(mapState, mapDispatch)(CodeEditor);
