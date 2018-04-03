@@ -52,6 +52,7 @@ class SingleProblem extends Component {
  */
 const mapState = (state, ownprops) => {
   return {
+		// Params: to refactor to not use ownprops.match.params.id. Idea: put an onClick function in the Levels component to dispatch to the store
 		params: parseInt(ownprops.match.params.id),
 		problem: state.currentProblem,
     isLoggedIn: !!state.user.id,

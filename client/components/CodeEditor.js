@@ -22,7 +22,8 @@ class CodeEditor extends Component {
     }
   }
 
-  //receiving code input as a prop from singleProblem once that is done loading from the db api call
+  // Receiving code input as a prop from singleProblem once that is done loading from the db api call
+  // This has worked 100% of the time
   componentWillReceiveProps(nextprop){
     if(nextprop.userInput && nextprop.userInput.length){
       this.setState({code: nextprop.userInput})
@@ -37,6 +38,7 @@ class CodeEditor extends Component {
 
   render() {
     const { problemId, userId, handleSave, userInput } = this.props;
+    console.log('state', this.state)
     return (
       <div>
         <div>
